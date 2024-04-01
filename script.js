@@ -41,15 +41,24 @@ document.addEventListener('DOMContentLoaded', function () {
             </table>
         `;
 
-        // Add event listener to edit and delete buttons using event delegation
-        gameList.addEventListener('click', function(event) {
-            if (event.target.classList.contains('edit-btn')) {
-                const gameId = event.target.dataset.id;
+        // Add event listeners to edit buttons
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const gameId = button.getAttribute('data-id');
                 editGame(gameId);
-            } else if (event.target.classList.contains('delete-btn')) {
-                const gameId = event.target.dataset.id;
+            });
+        });
+
+        // Add event listeners to delete buttons
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const gameId = button.getAttribute('data-id');
                 deleteGame(gameId);
-            }
+                // Remove the event listener after calling deleteGame
+                button.removeEventListener('click', deleteGame);
+            });
         });
     }
 
