@@ -5,6 +5,7 @@ The task is to develop a client-side web application for managing a personal gam
 Game Catalog
 
 Welcome to the Game Catalog application. This is a CRUD (Create, Read, Update, Delete) style website where you can manage your personal game collection.
+
 Features
 
     Add new games to your collection, including title, publisher, release date, image, critic score, personal score, and notes.
