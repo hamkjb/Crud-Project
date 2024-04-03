@@ -25,6 +25,10 @@ Navigate to the project directory:
     Run the application:
         Simply open the index.html file in your web browser.
 
+        Deployed Application
+
+You can access the deployed application [here.](https://hamkjb.github.io/Crud-Project/)
+
 Usage
 
     Adding a Game:
