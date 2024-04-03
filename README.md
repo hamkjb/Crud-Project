@@ -20,7 +20,7 @@ Setup
 
     bash
 
-git clone https://github.com/your-username/game-catalog.git
+git clone https://github.com/hamkjb/Crud-Project.git
 
 Navigate to the project directory:
 
