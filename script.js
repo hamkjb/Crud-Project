@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 `).join('')}
             </table>
         `;
-
+    
         // Add event listeners to edit buttons
         const editButtons = document.querySelectorAll('.edit-btn');
         editButtons.forEach(button => {
@@ -49,17 +49,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 editGame(gameId);
             });
         });
-
+    
         // Add event listeners to delete buttons
         const deleteButtons = document.querySelectorAll('.delete-btn');
         deleteButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function() {
                 const gameId = button.getAttribute('data-id');
                 deleteGame(gameId);
-                // Remove the event listener after calling deleteGame
-                button.removeEventListener('click', deleteGame);
             });
         });
+    }
+    
+    function deleteGame(gameId) {
+        let games = JSON.parse(localStorage.getItem('games')) || [];
+        games = games.filter(game => game.id !== gameId);
+        localStorage.setItem('games', JSON.stringify(games));
+        loadGames(); // Reload games after deletion
     }
 
     // Add or edit a game
