@@ -41,7 +41,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Adding transition for smoother hover effect */
+    transition: background-color 0.2s; /* Adding transition for smoother hover effect */
 }
 
 button:hover,
@@ -57,7 +57,7 @@ table {
 
 th, td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #4CAF50;
 }
 

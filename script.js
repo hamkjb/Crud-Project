@@ -28,16 +28,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 </tr>
                 ${games.map(game => `
                     <tr data-id="${game.id}">
-                        <td>${game.title}</td>
-                        <td>${game.publisher}</td>
-                        <td>${game.releaseDate}</td>
-                        <td><img src="${game.gameImage}" alt="${game.title}" style="max-width: 200px;"></td>
-                        <td>${game.criticScore}</td>
-                        <td>${game.personalScore}</td>
-                        <td>${game.notes}</td>
-                        <td>
-                            <button class="edit-btn" data-id="${game.id}">Edit</button>
-                            <button class="delete-btn" data-id="${game.id}">Delete</button>
+                    <td style="text-align: center;">${game.title}</td>
+                    <td style="text-align: center;">${game.publisher}</td>
+                    <td style="text-align: center;">${game.releaseDate}</td>
+                    <td style="text-align: center;"><img src="${game.gameImage}" alt="${game.title}" style="max-width: 200px;"></td>
+                    <td style="text-align: center;">${game.criticScore}</td>
+                    <td style="text-align: center;">${game.personalScore}</td>
+                    <td style="text-align: center;">${game.notes}</td>
+                    <td>
+                        <button class="edit-btn" data-id="${game.id}">Edit</button>
+                        <button class="delete-btn" data-id="${game.id}">Delete</button>
                         </td>
                     </tr>
                 `).join('')}
