@@ -3,16 +3,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const gameList = document.getElementById('gameList');
     const searchInput = document.getElementById('searchInput');
 
+    // Function to load games from localStorage on page load
     function loadGames() {
         const games = JSON.parse(localStorage.getItem('games')) || [];
         displayGames(games);
     }
 
+    // Function to display games in the table
     function displayGames(games) {
         gameList.innerHTML = generateGameTable(games);
         addEditDeleteEventListeners();
     }
 
+    // Function to generate the game table HTML
     function generateGameTable(games) {
         return `
             <table>
@@ -28,14 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 </tr>
                 ${games.map(game => `
                     <tr data-id="${game.id}">
-                    <td style="text-align: center;">${game.title}</td>
-                    <td style="text-align: center;">${game.publisher}</td>
-                    <td style="text-align: center;">${game.releaseDate}</td>
-                    <td style="text-align: center;"><img src="${game.gameImage}" alt="${game.title}" style="max-width: 200px;"></td>
-                    <td style="text-align: center;">${game.criticScore}</td>
-                    <td style="text-align: center;">${game.personalScore}</td>
-                    <td style="text-align: center;">${game.notes}</td>
-                    <td>
+                        <td>${game.title}</td>
+                        <td>${game.publisher}</td>
+                        <td>${game.releaseDate}</td>
+                        <td><img src="${game.gameImage}" alt="${game.title}" style="max-width: 200px;"></td>
+                        <td>${game.criticScore}</td>
+                        <td>${game.personalScore}</td>
+                        <td>${game.notes}</td>
+                        <td>
                         <button class="edit-btn" data-id="${game.id}">Edit</button>
                         <button class="delete-btn" data-id="${game.id}">Delete</button>
                         </td>
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
     }
 
+    // Function to add event listeners to edit and delete buttons
     function addEditDeleteEventListeners() {
         const editButtons = document.querySelectorAll('.edit-btn');
         const deleteButtons = document.querySelectorAll('.delete-btn');
@@ -64,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Function to handle form submission for adding/editing games
     function addOrEditGame(e) {
         e.preventDefault();
         const game = getFormData();
@@ -72,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gameForm.reset();
     }
 
+    // Function to retrieve form data
     function getFormData() {
         return {
             id: gameForm.gameId.value || Date.now(),
@@ -85,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 
+    // Function to update game data in localStorage
     function updateGameInStorage(game) {
         let games = JSON.parse(localStorage.getItem('games')) || [];
         const index = games.findIndex(g => g.id === game.id);
@@ -96,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('games', JSON.stringify(games));
     }
 
+    // Function to handle editing a game
     function editGame(gameId) {
         const games = JSON.parse(localStorage.getItem('games')) || [];
         const game = games.find(g => g.id === gameId);
@@ -104,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to populate form with game data for editing
     function populateFormWithGameData(game) {
         gameForm.title.value = game.title;
         gameForm.publisher.value = game.publisher;
@@ -115,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gameForm.gameId.value = game.id;
     }
 
+    // Function to delete a game
     function deleteGame(gameId) {
         let games = JSON.parse(localStorage.getItem('games')) || [];
         games = games.filter(game => game.id !== gameId);
@@ -122,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loadGames();
     }
 
+    // Function to search or filter games by title
     function searchGames() {
         const searchTerm = searchInput.value.toLowerCase();
         const games = JSON.parse(localStorage.getItem('games')) || [];
@@ -131,8 +142,12 @@ document.addEventListener('DOMContentLoaded', function () {
         displayGames(filteredGames);
     }
 
+    // Event listener for form submission
     gameForm.addEventListener('submit', addOrEditGame);
+
+    // Event listener for search input
     searchInput.addEventListener('input', searchGames);
 
-    loadGames(); // Initial load of games
+    // Initial load of games
+    loadGames();
 });
