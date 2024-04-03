@@ -14,13 +14,9 @@ Setup
 
     Clone the repository:
 
-    bash
-
-git clone https://github.com/hamkjb/Crud-Project.git
+    git clone https://github.com/hamkjb/Crud-Project.git
 
 Navigate to the project directory:
-
-bash
 
     cd game-catalog
 
