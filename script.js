@@ -3,15 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const gameList = document.getElementById('gameList');
     const searchInput = document.getElementById('searchInput');
 
-    // Load games from localStorage on page load
     function loadGames() {
         const games = JSON.parse(localStorage.getItem('games')) || [];
         displayGames(games);
     }
 
-    // Display games in the table
     function displayGames(games) {
-        gameList.innerHTML = `
+        gameList.innerHTML = generateGameTable(games);
+        addEditDeleteEventListeners();
+    }
+
+    function generateGameTable(games) {
+        return `
             <table>
                 <tr>
                     <th>Title</th>
@@ -40,18 +43,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 `).join('')}
             </table>
         `;
-    
-        // Add event listeners to edit buttons
+    }
+
+    function addEditDeleteEventListeners() {
         const editButtons = document.querySelectorAll('.edit-btn');
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const gameId = button.getAttribute('data-id');
                 editGame(gameId);
             });
         });
-    
-        // Add event listeners to delete buttons
-        const deleteButtons = document.querySelectorAll('.delete-btn');
+
         deleteButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const gameId = button.getAttribute('data-id');
@@ -59,70 +63,58 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-    
-    function deleteGame(gameId) {
-        let games = JSON.parse(localStorage.getItem('games')) || [];
-        games = games.filter(game => game.id !== gameId);
-        localStorage.setItem('games', JSON.stringify(games));
-        loadGames(); // Reload games after deletion
-    }
 
-    // Add or edit a game
     function addOrEditGame(e) {
         e.preventDefault();
-
-        const title = document.getElementById('title').value;
-        const publisher = document.getElementById('publisher').value;
-        const releaseDate = document.getElementById('releaseYear').value;
-        const gameImage = document.getElementById('gameImage').value;
-        const criticScore = document.getElementById('criticScore').value;
-        const personalScore = document.getElementById('personalScore').value;
-        const notes = document.getElementById('notes').value;
-        const gameId = document.getElementById('gameId').value;
-
-        const game = {
-            id: gameId || Date.now(),
-            title,
-            publisher,
-            releaseDate,
-            gameImage,
-            criticScore,
-            personalScore,
-            notes
-        };
-
-        let games = JSON.parse(localStorage.getItem('games')) || [];
-        if (gameId) {
-            const index = games.findIndex(g => g.id === gameId);
-            if (index !== -1) {
-                games[index] = game;
-            }
-        } else {
-            games.push(game);
-        }
-        localStorage.setItem('games', JSON.stringify(games));
-
+        const game = getFormData();
+        updateGameInStorage(game);
         loadGames();
         gameForm.reset();
     }
 
-    // Edit a game
+    function getFormData() {
+        return {
+            id: gameForm.gameId.value || Date.now(),
+            title: gameForm.title.value,
+            publisher: gameForm.publisher.value,
+            releaseDate: gameForm.releaseYear.value,
+            gameImage: gameForm.gameImage.value,
+            criticScore: gameForm.criticScore.value,
+            personalScore: gameForm.personalScore.value,
+            notes: gameForm.notes.value
+        };
+    }
+
+    function updateGameInStorage(game) {
+        let games = JSON.parse(localStorage.getItem('games')) || [];
+        const index = games.findIndex(g => g.id === game.id);
+        if (index !== -1) {
+            games[index] = game;
+        } else {
+            games.push(game);
+        }
+        localStorage.setItem('games', JSON.stringify(games));
+    }
+
     function editGame(gameId) {
         const games = JSON.parse(localStorage.getItem('games')) || [];
         const game = games.find(g => g.id === gameId);
         if (game) {
-            document.getElementById('title').value = game.title;
-            document.getElementById('publisher').value = game.publisher;
-            document.getElementById('releaseYear').value = game.releaseDate;
-            document.getElementById('gameImage').value = game.gameImage;
-            document.getElementById('criticScore').value = game.criticScore;
-            document.getElementById('personalScore').value = game.personalScore;
-            document.getElementById('notes').value = game.notes;
-            document.getElementById('gameId').value = game.id;
+            populateFormWithGameData(game);
         }
     }
 
-    // Delete a game
+    function populateFormWithGameData(game) {
+        gameForm.title.value = game.title;
+        gameForm.publisher.value = game.publisher;
+        gameForm.releaseYear.value = game.releaseDate;
+        gameForm.gameImage.value = game.gameImage;
+        gameForm.criticScore.value = game.criticScore;
+        gameForm.personalScore.value = game.personalScore;
+        gameForm.notes.value = game.notes;
+        gameForm.gameId.value = game.id;
+    }
+
     function deleteGame(gameId) {
         let games = JSON.parse(localStorage.getItem('games')) || [];
         games = games.filter(game => game.id !== gameId);
@@ -130,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
         loadGames();
     }
 
-    // Search or filter games by title
     function searchGames() {
         const searchTerm = searchInput.value.toLowerCase();
         const games = JSON.parse(localStorage.getItem('games')) || [];
@@ -140,12 +131,8 @@ document.addEventListener('DOMContentLoaded', function () {
         displayGames(filteredGames);
     }
 
-    // Event listener for form submission
     gameForm.addEventListener('submit', addOrEditGame);
-
-    // Event listener for search input
     searchInput.addEventListener('input', searchGames);
 
-    // Initial load of games
-    loadGames();
+    loadGames(); // Initial load of games
 });

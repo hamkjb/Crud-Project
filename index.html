@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Catalog</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Catalog</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-<div class="container">
-<h1>My Game Catalog</h1>
+    <div class="container">
+        <header>
+            <h1>My Game Catalog</h1>
+        </header>
 
-<!-- Search Input -->
-<input type="text" id="searchInput" placeholder="Search by title...">
+        <!-- Search Input -->
+        <input type="text" id="searchInput" placeholder="Search by title..." aria-label="Search by title">
 
-<!-- Game List Display -->
-<div id="gameList"></div>
+        <!-- Game List Display -->
+        <main id="gameList"></main>
 
-<!-- Game Addition Form -->
-<form id="gameForm">
-<label for="title">Title:</label>
-<input type="text" id="title" required>
+        <!-- Game Addition Form -->
+        <form id="gameForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" required aria-label="Game title">
 
-<label for="publisher">Publisher:</label>
-<input type="text" id="publisher" required>
+        <label for="publisher">Publisher:</label>
+        <input type="text" id="publisher" required aria-label="Game publisher">
 
-<label for="releaseYear">Release Year:</label>
-<input type="text" id="releaseYear" pattern="\d{4}" placeholder="YYYY" required>
+        <label for="releaseYear">Release Year:</label>
+        <input type="number" id="releaseYear" min="1958" max="2099" placeholder="YYYY" required aria-label="Release year">
 
-<label for="gameImage">Game Image URL:</label>
-<input type="url" id="gameImage" required>
+        <label for="gameImage">Game Image URL:</label>
+        <input type="url" id="gameImage" required aria-label="Game image URL">
 
-<label for="criticScore">Critic Score:</label>
-<input type="number" id="criticScore" min="0" max="100" placeholder="100" required>
+        <label for="criticScore">Critic Score:</label>
+        <input type="number" id="criticScore" min="0" max="100" placeholder="100" required aria-label="Critic score">
 
-<label for="personalScore">Personal Score:</label>
-<input type="number" id="personalScore" min="0" max="10" placeholder="10" required>
+        <label for="personalScore">Personal Score:</label>
+        <input type="number" id="personalScore" min="0" max="10" placeholder="10" required aria-label="Personal score">
 
-<label for="notes">Personal Notes:</label>
-<textarea id="notes"></textarea>
+        <label for="notes">Personal Notes:</label>
+        <textarea id="notes" aria-label="Personal notes"></textarea>
 
-<input type="hidden" id="gameId"> <!-- Hidden field for gameId -->
+        <input type="hidden" id="gameId"> <!-- Hidden field for gameId -->
 
-<button type="submit">Add Game</button>
-</form>
-</div>
-
-<script src="script.js"></script>
+        <button type="submit">Add Game</button>
+        </form>
+    </div>
 </body>
 </html>
