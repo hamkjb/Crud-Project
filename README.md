@@ -2,10 +2,6 @@
 
 The task is to develop a client-side web application for managing a personal game catalog, using HTML, CSS, and JavaScript. Key features include adding, viewing, and deleting games, with data stored locally. Additional challenges include implementing editing functionality, search/filter features, and possibly integrating an external API for critic reviews. The project also involves thorough testing, documentation, and publishing the application on GitHub.
 
-Game Catalog
-
-Welcome to the Game Catalog application. This is a CRUD (Create, Read, Update, Delete) style website where you can manage your personal game collection.
-
 Features
 
     Add new games to your collection, including title, publisher, release date, image, critic score, personal score, and notes.
