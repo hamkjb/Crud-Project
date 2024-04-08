@@ -11,8 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to display games in the table
     function displayGames(games) {
+    // Log the games array to see what data is loaded
         gameList.innerHTML = generateGameTable(games);
-        addEditDeleteEventListeners();
+        console.log('Games:', games); 
     }
 
     // Function to generate the game table HTML
@@ -39,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td>${game.personalScore}</td>
                         <td>${game.notes}</td>
                         <td>
-                        <button class="edit-btn" data-id="${game.id}">Edit</button>
-                        <button class="delete-btn" data-id="${game.id}">Delete</button>
+                            <button class="edit-btn" data-id="${game.id}">Edit</button>
+                            <button class="delete-btn" data-id="${game.id}">Delete</button>
                         </td>
                     </tr>
                 `).join('')}
@@ -48,34 +49,29 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
     }
 
-    // Function to add event listeners to edit and delete buttons
-    function addEditDeleteEventListeners() {
-        const editButtons = document.querySelectorAll('.edit-btn');
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const gameId = button.getAttribute('data-id');
-                editGame(gameId);
-            });
-        });
-
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const gameId = button.getAttribute('data-id');
-                deleteGame(gameId);
-            });
-        });
+  // Function to handle edit and delete actions
+function handleGameActions(event) {
+    console.log('Clicked Button:', event.target);
+    if (event.target.classList.contains('edit-btn')) {
+        const gameId = event.target.getAttribute('data-id');
+        console.log('Edit Game ID:', gameId);
+        editGame(gameId);
+    } else if (event.target.classList.contains('delete-btn')) {
+        const gameId = event.target.getAttribute('data-id');
+        console.log('Delete Game ID:', gameId);
+        deleteGame(gameId);
     }
+}
 
-    // Function to handle form submission for adding/editing games
-    function addOrEditGame(e) {
-        e.preventDefault();
-        const game = getFormData();
-        updateGameInStorage(game);
-        loadGames();
-        gameForm.reset();
-    }
+// Function to handle form submission for adding/editing games
+function addOrEditGame(e) {
+    e.preventDefault();
+    const game = getFormData();
+    console.log('Form Data:', game); // Log the form data being submitted
+    updateGameInStorage(game);
+    loadGames();
+    gameForm.reset();
+}
 
     // Function to retrieve form data
     function getFormData() {
@@ -108,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const games = JSON.parse(localStorage.getItem('games')) || [];
         const game = games.find(g => g.id === gameId);
         if (game) {
-            populateFormWithGameData(game);
+        populateFormWithGameData(game);
         }
     }
 
@@ -137,10 +133,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchTerm = searchInput.value.toLowerCase();
         const games = JSON.parse(localStorage.getItem('games')) || [];
         const filteredGames = games.filter(game =>
-            game.title.toLowerCase().includes(searchTerm)
+        game.title.toLowerCase().includes(searchTerm)
         );
         displayGames(filteredGames);
     }
+
+    // Event listener for click events on game list (delegated)
+    gameList.addEventListener('click', handleGameActions);
 
     // Event listener for form submission
     gameForm.addEventListener('submit', addOrEditGame);
