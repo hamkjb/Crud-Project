@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to handle editing a game
     function editGame(gameId) {
         const games = JSON.parse(localStorage.getItem('games')) || [];
-        const game = games.find(g => g.id === gameId);
+        const game = games.find(g => g.id == gameId);
         if (game) {
         populateFormWithGameData(game);
         }
