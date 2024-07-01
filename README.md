@@ -4,7 +4,8 @@ The task is to develop a client-side web application for managing a personal gam
 
 Features
 
-    Add new games to your collection, including title, publisher, release date, image, critic score, personal score, and notes.
+    Add new games to your collection, including title, publisher, release date, image,
+    critic score, personal score, and notes.
     View a list of all games in your collection.
     Edit existing games to update their details.
     Delete games from your collection.
