@@ -46,7 +46,8 @@ Usage
 
     Viewing Games:
         All your games will be displayed in a table format.
-        You can see details such as title, publisher, release date, image, critic score, personal score, and notes.
+        You can see details such as title, publisher, release date, image, critic score, 
+        personal score, and notes.
         Use the search bar to filter games by title.
 
     Editing a Game:
