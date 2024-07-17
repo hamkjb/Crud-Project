@@ -3,11 +3,10 @@ name: test
 on: push
 
 jobs: 
-  test-jon:
-
-  runs-on: ubuntu-latest
-
-  steps:
-    ~ name: check out respository code
-      users: actions/checkout@v4
-    ~ run: echo "$(cat test.txt)"
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Display contents of test.txt
+        run: echo "$(cat test.txt)"
