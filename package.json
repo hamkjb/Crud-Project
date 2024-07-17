@@ -1,0 +1,16 @@
+{
+  "name": "Crud-Project",
+  "version": "1.0.0",
+  "description": "CRUD project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",  // Example dependency
+    // Add other dependencies here
+  },
+  "devDependencies": {
+    // Optional: Add development dependencies here
+  }
+}
