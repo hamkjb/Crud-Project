@@ -1,0 +1,13 @@
+name: test
+
+on: push
+
+jobs: 
+  test-jon:
+
+  runs-on: ubuntu-latest
+
+  steps:
+    ~ name: check out respository code
+      users: actions/checkout@v4
+    ~ run: echo "$(cat test.txt)"
